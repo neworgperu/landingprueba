@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FIRBID | Subasta de dólares para empresas</title>
+  <meta name="description" content="FIRBID: subasta de dólares para empresas. Más competencia, más seguridad para tu dinero." />
+  <meta name="theme-color" content="#6C5CE7" />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0B0B12;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
+
+      --brand: #6C5CE7;    /* lila */
+      --brand2:#22C55E;    /* verde */
+      --brand3:#A78BFA;    /* lila claro */
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1100px 700px at 18% -10%, rgba(108,92,231,.35), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.20), transparent 55%),
+        radial-gradient(800px 500px at 50% 110%, rgba(167,139,250,.20), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a{ color: inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 0 20px; }
+
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(11,11,18,.68);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height: 74px;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .logo{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background:
+        radial-gradient(60% 60% at 30% 20%, rgba(255,255,255,.35), transparent 55%),
+        linear-gradient(135deg, var(--brand), rgba(34,197,94,.55));
+      box-shadow: 0 12px 30px rgba(108,92,231,.25);
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.14);
+      flex: 0 0 auto;
+    }
+    .logo svg{ width: 22px; height: 22px; opacity:.95; }
+    .brand-title{
+      display:flex;
+      flex-direction:column;
+      gap: 1px;
+    }
+    .brand-title strong{
+      font-size: 14px;
+      letter-spacing: .08em;
+    }
+    .brand-title span{
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+    }
+    nav a{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+    }
+    nav a:hover{
+      color: var(--text);
+      border-color: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+
+    .nav-actions{ display:flex; align-items:center; gap: 10px; }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+      white-space: nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.primary{
+      border-color: rgba(108,92,231,.55);
+      background: linear-gradient(135deg, rgba(108,92,231,.95), rgba(167,139,250,.65));
+      box-shadow: 0 18px 40px rgba(108,92,231,.22);
+    }
+    .btn.primary:hover{ filter: brightness(1.05); }
+    .btn .dot{
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--brand2);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+    }
+
+    .hamburger{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    .hamburger svg{ width: 22px; height: 22px; }
+
+    /* Hero */
+    .hero{
+      padding: 54px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 26px;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+      width: fit-content;
+    }
+    .pill .spark{
+      width: 20px; height: 20px; border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), transparent 55%),
+                  linear-gradient(135deg, var(--brand), rgba(34,197,94,.55));
+      border: 1px solid rgba(255,255,255,.16);
+      display:grid; place-items:center;
+    }
+    h1{
+      font-size: clamp(32px, 4.3vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 14px 0 12px;
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0 0 18px;
+      max-width: 56ch;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .hero-note{
+      margin-top: 14px;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+    .hero-card{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+      min-height: 380px;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(700px 380px at 20% 10%, rgba(108,92,231,.38), transparent 55%),
+        radial-gradient(620px 360px at 90% 0%, rgba(34,197,94,.18), transparent 55%);
+      opacity: .85;
+      pointer-events:none;
+    }
+    .hero-card-inner{
+      position: relative;
+      padding: 18px;
+      height: 100%;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .mini-metric{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .metric{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,11,18,.35);
+      padding: 12px 12px;
+    }
+    .metric strong{
+      display:block;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .metric span{
+      font-size: 12px;
+      color: var(--muted2);
+    }
+    .shield{
+      flex: 1;
+      border-radius: 20px;
+      border: 1px dashed rgba(255,255,255,.22);
+      background: rgba(11,11,18,.25);
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      position: relative;
+      overflow:hidden;
+    }
+    .shield::after{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background: conic-gradient(from 180deg, rgba(108,92,231,.0), rgba(108,92,231,.35), rgba(34,197,94,.25), rgba(167,139,250,.25), rgba(108,92,231,.0));
+      filter: blur(26px);
+      opacity: .85;
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin{
+      to{ transform: rotate(360deg); }
+    }
+    .shield-content{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      max-width: 28ch;
+    }
+    .shield svg{
+      width: 64px; height: 64px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+    }
+    .shield h3{
+      margin: 4px 0 6px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .shield p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Sections */
+    section{ padding: 46px 0; }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 24px;
+      letter-spacing: -0.01em;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 14px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      position: relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: radial-gradient(500px 220px at 20% 0%, rgba(108,92,231,.22), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .card > *{ position: relative; z-index: 1; }
+    .icon{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(11,11,18,.35);
+      display:grid;
+      place-items:center;
+      margin-bottom: 10px;
+    }
+    .icon svg{ width: 20px; height: 20px; opacity:.95; }
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Steps */
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .step-list{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .step{
+      display:flex;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+    }
+    .step b{
+      width: 32px; height: 32px;
+      display:grid; place-items:center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(108,92,231,.95), rgba(167,139,250,.55));
+      border: 1px solid rgba(255,255,255,.14);
+      flex: 0 0 auto;
+    }
+    .step h4{ margin:0; font-size: 14px; }
+    .step p{ margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+    .mock{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(700px 280px at 10% 0%, rgba(34,197,94,.12), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .mock-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .dots{ display:flex; gap: 6px; }
+    .dots i{
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,.20);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .tag{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,11,18,.28);
+      padding: 7px 10px;
+      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .tag .ok{
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--brand2);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.12);
+    }
+    .mock-body{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .mini{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,11,18,.30);
+      padding: 12px;
+    }
+    .mini small{ color: var(--muted2); display:block; margin-bottom: 6px; }
+    .mini strong{ font-size: 18px; letter-spacing:-0.01em; }
+    .mini .bar{
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      overflow:hidden;
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .mini .bar > span{
+      display:block;
+      height: 100%;
+      width: 72%;
+      background: linear-gradient(90deg, rgba(108,92,231,.95), rgba(34,197,94,.65));
+    }
+
+    /* Quote */
+    .quote{
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(108,92,231,.15), rgba(255,255,255,.06));
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+    .quote::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px 220px at 85% 0%, rgba(34,197,94,.12), transparent 55%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    blockquote{
+      margin:0;
+      position: relative;
+      z-index: 1;
+      color: rgba(255,255,255,.90);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .quote footer{
+      position: relative;
+      z-index: 1;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+
+    /* CTA */
+    .cta{
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(800px 260px at 15% 10%, rgba(108,92,231,.22), transparent 55%),
+        radial-gradient(700px 260px at 90% 0%, rgba(34,197,94,.14), transparent 55%),
+        rgba(255,255,255,.06);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .cta h3{ margin:0; font-size: 18px; }
+    .cta p{ margin: 4px 0 0; color: var(--muted); font-size: 13px; max-width: 62ch; }
+
+    /* Footer */
+    footer.site{
+      padding: 28px 0 40px;
+      color: var(--muted2);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      margin-top: 30px;
+    }
+    .foot{
+      display:flex;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .foot a{ color: rgba(255,255,255,.70); }
+    .foot a:hover{ color: var(--text); }
+
+    /* Mobile */
+    @media (max-width: 940px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-card{ min-height: 340px; }
+      .steps{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      nav{ display:none; }
+      .hamburger{ display:inline-grid; place-items:center; }
+      .brand{ min-width: unset; }
+    }
+
+    /* Mobile menu panel */
+    .menu{
+      display:none;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 10px 0 14px;
+    }
+    .menu.open{ display:block; }
+    .menu a{
+      display:block;
+      padding: 12px 10px;
+      border-radius: 14px;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+    .menu a:hover{
+      color: var(--text);
+      border-color: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="topbar-inner">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">
+          <div class="logo" aria-hidden="true">
+            <!-- simple "F" mark -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6 5h12v3H9v3h8v3H9v5H6V5z" fill="white" opacity=".95"/>
+            </svg>
+          </div>
+          <div class="brand-title">
+            <strong>FIRBID</strong>
+            <span>Subasta de dólares para empresas</span>
+          </div>
+        </a>
+
+        <nav aria-label="Navegación principal">
+          <a href="#beneficios">Beneficios</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#caso-exito">Caso de éxito</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="btn" href="#contacto" title="Hablar con un asesor">
+            <span class="dot" aria-hidden="true"></span>
+            Hablar ahora
+          </a>
+          <a class="btn primary" href="#contacto" title="Solicitar demo">Solicitar demo</a>
+          <button class="hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 7h14M5 12h14M5 17h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu" id="mobileMenu">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#caso-exito">Caso de éxito</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="inicio" class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="pill">
+            <span class="spark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2l2.6 6.6L22 11l-6.6 2.4L12 20l-2.4-6.6L2 11l7.6-2.4L12 2z" fill="white" opacity=".95"/>
+              </svg>
+            </span>
+            A más competencia, más seguridad para tu dinero
+          </div>
+
+          <h1>Subasta de dólares para empresas, con respaldo y control.</h1>
+          <p class="lead">
+            Obtén un tipo de cambio competitivo gracias a la competencia entre entidades financieras,
+            con un proceso claro, trazable y diseñado para generar confianza en operaciones grandes.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#contacto">Solicitar demo</a>
+            <a class="btn" href="#como-funciona">Ver cómo funciona</a>
+            <a class="btn" href="#beneficios" title="Descargar ficha técnica">Descargar ficha técnica</a>
+          </div>
+
+          <div class="hero-note">
+            FIRBID, la plataforma empresarial de cambio de dólares.
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Panel de seguridad y confianza">
+          <div class="hero-card-inner">
+            <div class="mini-metric">
+              <div class="metric">
+                <strong>+ Competencia</strong>
+                <span>Mejores condiciones en tiempo real</span>
+              </div>
+              <div class="metric">
+                <strong>+ Seguridad</strong>
+                <span>Proceso trazable y controlado</span>
+              </div>
+            </div>
+
+            <div class="shield">
+              <div class="shield-content">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2l8 4v7c0 5-3.4 8.6-8 9-4.6-.4-8-4-8-9V6l8-4z" fill="white" opacity=".18"/>
+                  <path d="M12 3.8l6 3v6.1c0 3.8-2.4 6.7-6 7.2-3.6-.5-6-3.4-6-7.2V6.8l6-3z" stroke="white" opacity=".55"/>
+                  <path d="M9.2 12.1l1.8 1.9 3.8-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3>Confianza para montos grandes</h3>
+                <p>Auditable, competitivo y enfocado en proteger el proceso de cambio para tu empresa.</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Beneficios -->
+  <section id="beneficios">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Convierte tu cambio de dólares en una decisión segura</h2>
+          <p>Cuando hay más competencia, sube la presión por ofrecer mejores condiciones y baja el riesgo de depender de un solo proveedor.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16v10H4V7z" stroke="white" opacity=".8"/>
+              <path d="M7 10h5M7 13h8" stroke="white" stroke-linecap="round" opacity=".9"/>
+              <path d="M16.5 12a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="white" opacity=".9"/>
+            </svg>
+          </div>
+          <h3>Tipo de cambio competitivo</h3>
+          <p>La competencia entre entidades financieras presiona el precio a favor de tu empresa.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l8 4v7c0 5-3.4 8.6-8 9-4.6-.4-8-4-8-9V6l8-4z" stroke="white" opacity=".85"/>
+              <path d="M9.2 12.1l1.8 1.9 3.8-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Proceso trazable y controlable</h3>
+          <p>Mayor claridad operativa: cotización, confirmación y registro de cada etapa.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10M7 12h10M7 17h10" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+              <path d="M4 5h2v2H4V5zm0 5h2v2H4v-2zm0 5h2v2H4v-2z" fill="white" opacity=".85"/>
+            </svg>
+          </div>
+          <h3>Menos fricción, más eficiencia</h3>
+          <p>Un flujo claro para que tu equipo no dependa de llamadas, chats y múltiples validaciones.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Cómo funciona FIRBID</h2>
+          <p>Un flujo simple para operar con seguridad: solicitas, compites, confirmas y liquidas con trazabilidad.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step-list">
+          <div class="step">
+            <b>1</b>
+            <div>
+              <h4>Registra tu empresa</h4>
+              <p>Completa datos básicos y define responsables para operar con control interno.</p>
+            </div>
+          </div>
+          <div class="step">
+            <b>2</b>
+            <div>
+              <h4>Publica la subasta</h4>
+              <p>Indica monto y condiciones; las entidades financieras compiten por tu operación.</p>
+            </div>
+          </div>
+          <div class="step">
+            <b>3</b>
+            <div>
+              <h4>Elige la mejor propuesta</h4>
+              <p>Confirma la oferta ganadora y registra la operación para auditoría y seguimiento.</p>
+            </div>
+          </div>
+          <div class="step">
+            <b>4</b>
+            <div>
+              <h4>Liquida con tranquilidad</h4>
+              <p>Ejecuta el cambio con el flujo definido y documentación clara del proceso.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock" aria-label="Mock visual">
+          <div class="mock-top">
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span class="tag"><span class="ok" aria-hidden="true"></span> Subasta activa • 00:34</span>
+          </div>
+          <div class="mock-body">
+            <div class="mini">
+              <small>Mejor tipo de cambio</small>
+              <strong>Competitivo</strong>
+              <div class="bar"><span></span></div>
+            </div>
+            <div class="mini">
+              <small>Estado del proceso</small>
+              <strong>Trazable</strong>
+              <div class="bar"><span style="width:84%"></span></div>
+            </div>
+          </div>
+          <p style="margin:12px 0 0; color: var(--muted); font-size: 13px;">
+            La seguridad no es solo “tecnología”: también es competencia, reglas claras y trazabilidad.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caso de éxito -->
+  <section id="caso-exito">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Caso de éxito</h2>
+          <p>Prueba social y señales de confianza ayudan a acelerar decisiones en servicios financieros B2B. (Aquí puedes colocar tu caso real más fuerte.)</p>
+        </div>
+      </div>
+
+      <div class="quote">
+        <blockquote>
+          “Con FIRBID logramos mejorar el tipo de cambio gracias a la competencia y tener un proceso más controlable y claro para operaciones importantes.”
+        </blockquote>
+        <footer>
+          <span>— Cliente corporativo (testimonio referencial)</span>
+          <a class="btn" href="#contacto">Quiero ver una demo</a>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <h3>¿Listo para subastar tus dólares con más seguridad?</h3>
+          <p>Cuéntanos tu caso (monto promedio, frecuencia, bancos con los que trabajas) y te guiamos con el mejor flujo para tu empresa.</p>
+        </div>
+        <div style="display:flex; gap: 10px; flex-wrap:wrap;">
+          <a class="btn primary" href="https://wa.me/51999999999?text=Hola%2C%20quiero%20una%20demo%20de%20FIRBID" target="_blank" rel="noopener">
+            Contáctanos por WhatsApp
+          </a>
+          <a class="btn" href="mailto:contacto@firbid.com?subject=Solicitud%20de%20demo%20FIRBID">contacto@firbid.com</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div class="card">
+          <h3 style="margin:0 0 6px;">Qué recibirás</h3>
+          <p style="margin:0; color:var(--muted); font-size:13px;">
+            Demo guiada + recomendaciones de flujo + checklist de requisitos para activar la operación con tu equipo.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 6px;">Tiempo estimado</h3>
+          <p style="margin:0; color:var(--muted); font-size:13px;">
+            Primera reunión: 20–30 min. Luego, onboarding según complejidad del proceso interno de tu empresa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot">
+        <div>© <span id="year"></span> FIRBID. Todos los derechos reservados.</div>
+        <div style="display:flex; gap: 12px; flex-wrap:wrap;">
+          <a href="#inicio">Inicio</a>
+          <a href="#beneficios">Beneficios</a>
+          <a href="#contacto">Contacto</a>
+          <a href="https://firbid.com" target="_blank" rel="noopener">www.firbid.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const btn = document.getElementById("btnMenu");
+    const menu = document.getElementById("mobileMenu");
+
+    btn?.addEventListener("click", () => {
+      const open = menu.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+
+    // Close menu on click
+    menu?.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => {
+        menu.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
