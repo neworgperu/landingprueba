@@ -100,17 +100,20 @@
       max-width:56ch;
     }
 
-    .heroImg{
-      background:#F6F8FC;
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .heroImg img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
+.heroImg{
+  background: transparent;
+  border-radius: var(--radius);
+  box-shadow: none;
+  overflow: hidden;          /* recorta al radio */
+  border: 0;
+}
+.heroImg img{
+  width: 100%;
+  height: auto;
+  display: block;
+  background: transparent;
+}
+
 
     /* Sections */
     section{
