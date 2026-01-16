@@ -39,10 +39,17 @@
       display:flex;justify-content:space-between;align-items:center;
       padding:14px 0;
     }
-    .brand{
-      display:flex;align-items:center;gap:12px;
-      font-weight:800;
-    }
+.brand{
+  display: flex;
+  align-items: center;
+  height: 36px;              /* controla la altura del logo en la barra */
+}
+
+.brand img{
+  height: 100%;              /* se adapta a la altura definida arriba */
+  width: auto;               /* mantiene proporción */
+  display: block;
+}
     .logo{
       width:36px;height:36px;border-radius:10px;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
@@ -219,9 +226,9 @@
 <header>
   <div class="wrap">
     <div class="row">
-      <div class="brand">
-        FIRBID
-      </div>
+<div class="brand">
+  <img src="img/logofblanco-removebg-preview.png" alt="FIRBID" />
+</div>
       <nav>
         <a href="#beneficios">Beneficios</a>
         <a href="#como-funciona">Cómo funciona</a>
