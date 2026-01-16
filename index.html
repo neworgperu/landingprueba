@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FIRBID — Subasta de dólares para empresas</title>
+  <meta name="description" content="FIRBID, la plataforma empresarial de cambio de dólares. A más competencia, más seguridad para tu dinero." />
+  <style>
+    :root{
+      --bg: #0B1020;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.10);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+
+      --violet: #8B5CF6;
+      --violet2:#A78BFA;
+      --green: #22C55E;
+      --green2:#34D399;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(139,92,246,.35), transparent 60%),
+        radial-gradient(900px 500px at 80% 15%, rgba(34,197,94,.20), transparent 60%),
+        radial-gradient(900px 500px at 60% 90%, rgba(167,139,250,.18), transparent 60%),
+        linear-gradient(180deg, #070A14 0%, #0B1020 60%, #070A14 100%);
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* Topbar */
+    .topbar{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,10,20,.65);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar .row{
+      display:flex; align-items:center; justify-content: space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 10px; font-weight: 800; letter-spacing: .3px;
+    }
+    .logo{
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--violet) 0%, var(--green) 100%);
+      box-shadow: 0 10px 30px rgba(139,92,246,.25);
+      position: relative;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset: 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .nav{
+      display:flex; align-items:center; gap: 18px; color: var(--muted); font-weight: 600;
+    }
+    .nav a{ padding: 8px 10px; border-radius: 10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+
+    .actions{ display:flex; align-items:center; gap: 10px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 800;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22); transform: translateY(-1px); }
+    .btn.primary{
+      border: 1px solid rgba(139,92,246,.55);
+      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(34,197,94,.75));
+      box-shadow: 0 18px 50px rgba(139,92,246,.18);
+    }
+    .btn.primary:hover{ transform: translateY(-1px) scale(1.01); }
+
+    /* Hero */
+    .hero{ padding: 58px 0 18px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight: 700;
+      width: fit-content;
+    }
+    .dot{
+      width: 10px; height: 10px; border-radius: 99px;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.12);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(32px, 4.2vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+    }
+    .sub{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16.5px;
+      line-height: 1.55;
+      max-width: 56ch;
+    }
+    .hero-cta{ display:flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 10px; }
+    .mini{
+      display:flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;
+      color: var(--muted); font-weight: 650;
+    }
+    .mini span{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .mini svg{ opacity:.9; }
+
+    /* Right card */
+    .panel{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel .head{
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      display:flex; align-items:center; justify-content: space-between;
+      gap: 12px;
+    }
+    .panel h3{ margin: 0; font-size: 14px; color: var(--muted); font-weight: 900; letter-spacing:.5px; text-transform: uppercase; }
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(139,92,246,.18);
+      border: 1px solid rgba(139,92,246,.28);
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .panel .body{ padding: 18px; }
+    .form{
+      display:grid;
+      gap: 12px;
+    }
+    .field label{
+      display:block; font-size: 12.5px; color: var(--muted); font-weight: 800; margin-bottom: 6px;
+    }
+    .field input, .field select{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,15,30,.55);
+      color: var(--text);
+      outline:none;
+    }
+    .field input::placeholder{ color: rgba(255,255,255,.40); }
+    .hint{
+      margin-top: 10px;
+      color: rgba(255,255,255,.62);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .fine{
+      margin-top: 10px;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    /* Sections */
+    section{ padding: 42px 0; }
+    .section-title{
+      display:flex; align-items: flex-end; justify-content: space-between; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -.2px;
+    }
+    .section-title p{ margin:0; color: var(--muted); max-width: 62ch; line-height: 1.5; }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      min-height: 132px;
+    }
+    .card .icon{
+      width: 42px; height: 42px; border-radius: 14px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg, rgba(139,92,246,.25), rgba(34,197,94,.18));
+      border: 1px solid rgba(255,255,255,.14);
+      margin-bottom: 10px;
+    }
+    .card h4{ margin: 6px 0 6px; font-size: 16px; }
+    .card p{ margin:0; color: var(--muted); line-height: 1.55; }
+
+    /* How it works */
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .step{
+      display:flex; gap: 12px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .num{
+      width: 34px; height: 34px; border-radius: 12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 950;
+      background: rgba(139,92,246,.18);
+      border: 1px solid rgba(139,92,246,.26);
+    }
+    .step h4{ margin:0 0 6px; }
+    .step p{ margin:0; color: var(--muted); line-height:1.55; }
+
+    /* Trust strip */
+    .trust{
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(34,197,94,.10));
+      border: 1px solid rgba(255,255,255,.12);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .trust strong{ font-size: 16px; }
+    .trust span{ color: var(--muted); }
+
+    /* FAQ */
+    details{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 14px 16px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      color: rgba(255,255,255,.88);
+    }
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 34px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.55);
+    }
+    .footer-grid{
+      display:flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="row">
+        <div class="brand" aria-label="FIRBID">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div style="font-size:14px; line-height:1; font-weight:950;">FIRBID</div>
+            <div style="font-size:12px; color:var(--muted); font-weight:800; margin-top:2px;">Plataforma empresarial</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Navegación">
+          <a href="#beneficios">Beneficios</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#confianza">Confianza</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="#demo">Ver demo</a>
+          <a class="btn primary" href="#registro">Crear cuenta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">
+            <span class="dot" aria-hidden="true"></span>
+            <span>A más competencia, más seguridad para tu dinero</span>
+          </div>
+
+          <h1>Subasta de dólares para empresas, con enfoque en confianza.</h1>
+
+          <p class="sub">
+            FIRBID reúne a entidades financieras para competir por tu operación.
+            Tú eliges con información clara, trazabilidad y una experiencia diseñada para equipos de tesorería.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="#registro">Empezar ahora</a>
+            <a class="btn" href="#como-funciona">Cómo funciona</a>
+          </div>
+
+          <div class="mini">
+            <span>
+              <!-- shield -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Seguridad & control
+            </span>
+            <span>
+              <!-- bolt -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Competencia en tiempo real
+            </span>
+            <span>
+              <!-- building -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 22V3h16v19M8 7h2M8 11h2M8 15h2M14 7h2M14 11h2M14 15h2" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Diseñado para empresas
+            </span>
+          </div>
+        </div>
+
+        <!-- Right panel / demo form -->
+        <div class="panel" id="demo">
+          <div class="head">
+            <h3>Simulación</h3>
+            <span class="chip">Demo (no real)</span>
+          </div>
+          <div class="body">
+            <form class="form" onsubmit="event.preventDefault(); alert('Demo: aquí iría el flujo de registro o cotización.');">
+              <div class="field">
+                <label for="monto">Monto (USD)</label>
+                <input id="monto" type="number" placeholder="Ej: 50,000" min="1" />
+              </div>
+              <div class="field">
+                <label for="tipo">Tipo de operación</label>
+                <select id="tipo">
+                  <option>Compra de USD</option>
+                  <option>Venta de USD</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="empresa">Empresa</label>
+                <input id="empresa" type="text" placeholder="Razón social" />
+              </div>
+              <button class="btn primary" style="width:100%; padding:12px 14px;">Probar la demo</button>
+            </form>
+
+            <div class="hint">
+              Esta sección es solo para prueba visual. Puedes reemplazarla por tu formulario real, CTA o conexión a tu CRM.
+            </div>
+            <div class="fine">
+              Nota: adapta textos y claims a tu regulación/legales internos.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Benefits -->
+  <section id="beneficios">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Beneficios para tesorería</h2>
+          <p>Un diseño centrado en decisiones rápidas, comparables y auditables.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <!-- scale -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v18M6 7h12M7 7l-3 6h6l-3-6zm10 0l-3 6h6l-3-6z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h4>Mejor decisión, no solo “mejor precio”</h4>
+          <p>Comparación clara entre ofertas para elegir con criterios de seguridad, rapidez y condiciones.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <!-- lock -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M7 11V8a5 5 0 0110 0v3M6 11h12v10H6V11z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h4>Control y trazabilidad</h4>
+          <p>Flujos pensados para empresas: roles, aprobaciones y registro de eventos para auditoría.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <!-- plug -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M9 3v6M15 3v6M7 9h10v3a5 5 0 01-10 0V9zM12 14v7" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h4>Listo para integrarse</h4>
+          <p>Si necesitas, puedes presentar una versión API para publicar tipos de cambio en tu propio canal digital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="como-funciona">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Cómo funciona</h2>
+          <p>Una estructura simple para que la competencia trabaje a favor de tu empresa.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h4>Publica tu necesidad</h4>
+            <p>Indicas monto, moneda, horario y condiciones internas (aprobación, urgencia, etc.).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h4>Entidades compiten</h4>
+            <p>Recibes ofertas comparables en una ventana de tiempo definida.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h4>Seleccionas con seguridad</h4>
+            <p>Eliges la mejor oferta según tu criterio: tipo de cambio, velocidad, condiciones.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h4>Cierre y registro</h4>
+            <p>Queda evidencia del proceso (para control interno), y se completa la operación según el flujo definido.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section id="confianza">
+    <div class="wrap">
+      <div class="trust">
+        <div>
+          <strong>Confianza como eje.</strong>
+          <div><span>Diseño visual sobrio, mensajes claros y foco en seguridad operacional.</span></div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="#faq">Ver preguntas</a>
+          <a class="btn primary" href="#registro">Solicitar acceso</a>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="grid3">
+        <div class="card">
+          <h4>Mensajes consistentes</h4>
+          <p>Claim central + beneficios “de empresa” (control, trazabilidad, aprobación).</p>
+        </div>
+        <div class="card">
+          <h4>Señales de seguridad</h4>
+          <p>Iconografía sólida, tonos sobrios, microcopys de verificación, y bloques de “confianza”.</p>
+        </div>
+        <div class="card">
+          <h4>CTA sin fricción</h4>
+          <p>Un CTA principal (registro) + uno secundario (demo / cómo funciona) para capturar leads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Preguntas frecuentes</h2>
+          <p>Textos placeholder: ajústalos a tu propuesta final y términos legales.</p>
+        </div>
+      </div>
+
+      <details>
+        <summary>¿FIRBID es para personas o empresas?</summary>
+        <p>Esta landing está pensada para un enfoque empresarial: tesorería, finanzas y operaciones de cambio corporativo.</p>
+      </details>
+
+      <details>
+        <summary>¿Qué significa “subasta” en este contexto?</summary>
+        <p>Es un mecanismo de competencia entre entidades habilitadas para ofrecer condiciones, donde tu empresa elige la mejor oferta según su criterio.</p>
+      </details>
+
+      <details>
+        <summary>¿Puedo integrarlo a mi web (API)?</summary>
+        <p>Sí. Puedes plantear una modalidad API para publicar tipos de cambio y usarlos como base de transacciones en tu canal digital.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section id="registro">
+    <div class="wrap">
+      <div class="panel" style="padding: 20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;">
+          <div>
+            <div class="badge" style="margin-bottom:10px;">
+              <span class="dot" aria-hidden="true"></span>
+              <span>FIRBID, la plataforma empresarial de cambio de dólares.</span>
+            </div>
+            <h2 style="margin:0 0 8px; font-size: 24px;">¿Listo para una demo real?</h2>
+            <p style="margin:0; color:var(--muted); line-height:1.55;">
+              Deja tus datos y te contactamos para mostrar el flujo completo y resolver tus dudas.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="#demo">Ver simulación</a>
+            <a class="btn primary" href="#" onclick="alert('Aquí conectarías tu formulario real / CRM.'); return false;">Solicitar contacto</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="logo" aria-hidden="true" style="width:28px; height:28px; border-radius:10px;"></div>
+          <div>
+            <div style="font-weight:950; color:rgba(255,255,255,.84);">FIRBID</div>
+            <div style="font-size:12px;">© <span id="y"></span> — Demo landing</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#beneficios">Beneficios</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
