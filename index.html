@@ -40,14 +40,17 @@
       padding:14px 0;
     }
 .brand{
-  height: 36px;
+  display: flex;
+  align-items: center;
+  height: 36px;              /* controla la altura del logo en la barra */
 }
 
-@media (min-width: 900px){
-  .brand{
-    height: 42px;
-  }
+.brand img{
+  height: 100%;              /* se adapta a la altura definida arriba */
+  width: auto;               /* mantiene proporción */
+  display: block;
 }
+
 
     .logo{
       width:36px;height:36px;border-radius:10px;
