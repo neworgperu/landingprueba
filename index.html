@@ -40,16 +40,15 @@
       padding:14px 0;
     }
 .brand{
-  display: flex;
-  align-items: center;
-  height: 36px;              /* controla la altura del logo en la barra */
+  height: 36px;
 }
 
-.brand img{
-  height: 100%;              /* se adapta a la altura definida arriba */
-  width: auto;               /* mantiene proporción */
-  display: block;
+@media (min-width: 900px){
+  .brand{
+    height: 42px;
+  }
 }
+
     .logo{
       width:36px;height:36px;border-radius:10px;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
