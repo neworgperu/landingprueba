@@ -1,1 +1,629 @@
-<h1>Hola</h1>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FIRBID | El tipo de cambio siempre es mejor cuando hay competencia</title>
+  <meta name="description" content="FIRBID: subasta de dólares para empresas. A más competencia entre entidades financieras, mejor tipo de cambio para tu empresa." />
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --panel-2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.60);
+      --stroke: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+
+      --accent: #a78bfa;  /* lila */
+      --accent2: #22c55e; /* verde */
+      --accent3: #60a5fa; /* azul */
+      --warn: #fbbf24;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 5%, rgba(167,139,250,.22), transparent 60%),
+        radial-gradient(900px 550px at 85% 15%, rgba(96,165,250,.18), transparent 62%),
+        radial-gradient(900px 650px at 70% 95%, rgba(34,197,94,.16), transparent 60%),
+        var(--bg);
+      line-height: 1.5;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .container{ width:min(1120px, 92vw); margin: 0 auto; }
+
+    /* Top bar */
+    .topbar{
+      position: sticky; top:0; z-index:10;
+      backdrop-filter: blur(14px);
+      background: rgba(11,16,32,.72);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 800; letter-spacing:.4px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius: 10px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(167,139,250,.85), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(34,197,94,.75), transparent 62%),
+        rgba(255,255,255,.10);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .navlinks{ display:flex; gap:18px; align-items:center; }
+    .navlinks a{
+      font-size: 14px; color: var(--muted);
+      padding: 8px 10px; border-radius: 10px;
+    }
+    .navlinks a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 700;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18); }
+    .btn.primary{
+      border-color: rgba(167,139,250,.45);
+      background: linear-gradient(135deg, rgba(167,139,250,.95), rgba(96,165,250,.75));
+      color: #0b1020;
+      box-shadow: 0 18px 55px rgba(167,139,250,.18);
+    }
+    .btn.primary:hover{ transform: translateY(-2px); }
+    .btn.whatsapp{
+      border-color: rgba(34,197,94,.45);
+      background: rgba(34,197,94,.18);
+    }
+
+    /* Hero */
+    .hero{ padding: 56px 0 26px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding: 7px 10px;
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius: 99px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 5px rgba(34,197,94,.15);
+    }
+    h1{
+      font-size: clamp(30px, 3.4vw, 46px);
+      line-height: 1.08;
+      margin: 14px 0 12px;
+      letter-spacing: -.6px;
+    }
+    .lead{ font-size: 16px; color: var(--muted); margin: 0 0 18px; max-width: 56ch; }
+    .cta-row{ display:flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+    .note{
+      margin-top: 14px; color: var(--muted2); font-size: 13px;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .note strong{ color: var(--text); }
+
+    .hero-card{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 260px at 20% 15%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(500px 260px at 90% 10%, rgba(96,165,250,.15), transparent 60%),
+        radial-gradient(500px 260px at 70% 90%, rgba(34,197,94,.14), transparent 60%);
+      pointer-events:none;
+      filter: blur(0px);
+    }
+    .hero-card > *{ position: relative; }
+    .metric{
+      display:flex; gap: 12px; align-items: center;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      margin-bottom: 12px;
+    }
+    .metric .icon{
+      width: 38px; height: 38px; border-radius: 14px;
+      background: rgba(167,139,250,.16);
+      border: 1px solid rgba(167,139,250,.35);
+      display:grid; place-items:center;
+      font-weight: 900;
+      color: rgba(255,255,255,.95);
+    }
+    .metric .txt{ display:flex; flex-direction: column; }
+    .metric .k{ font-size: 13px; color: var(--muted); }
+    .metric .v{ font-size: 15px; font-weight: 800; letter-spacing: -.2px; }
+
+    .mini{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .mini .box{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .mini .box .t{ font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .mini .box .b{ font-weight: 800; }
+
+    /* Sections */
+    section{ padding: 34px 0; }
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 16px;
+      margin-bottom: 14px;
+    }
+    h2{
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -.3px;
+    }
+    .sub{ color: var(--muted); margin: 0; max-width: 72ch; }
+
+    /* Cards grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.28);
+      min-height: 150px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap: 8px;
+      font-size: 12px; color: var(--muted);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .card h3{ margin: 0 0 8px; font-size: 16px; letter-spacing: -.2px; }
+    .card p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Steps */
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .step{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--radius);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .num{
+      width: 34px; height: 34px; border-radius: 12px;
+      display:grid; place-items:center;
+      background: rgba(96,165,250,.18);
+      border: 1px solid rgba(96,165,250,.35);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .step p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Trust row */
+    .trust{
+      display:flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 14px;
+    }
+    .chip{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Quote */
+    .quote{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-top: 14px;
+    }
+    blockquote{ margin: 0; color: rgba(255,255,255,.86); }
+    .quote .by{ margin-top: 10px; color: var(--muted); font-size: 13px; }
+
+    /* Contact */
+    .contact{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .panel{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.26);
+    }
+    label{ display:block; font-size: 13px; color: var(--muted); margin: 10px 0 6px; }
+    input, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline: none;
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+
+    footer{
+      padding: 22px 0 34px;
+      color: var(--muted2);
+      border-top: 1px solid var(--stroke);
+      margin-top: 26px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap: 14px; flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+      .contact{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#inicio" aria-label="FIRBID inicio">
+          <span class="logo" aria-hidden="true"></span>
+          <span>FIRBID</span>
+        </a>
+
+        <div class="navlinks" aria-label="Navegación principal">
+          <a href="#beneficios">Beneficios</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#confianza">Confianza</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+
+        <a class="btn primary" href="#contacto">Solicitar demo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header id="inicio" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="pill"><span class="dot" aria-hidden="true"></span> Subasta de dólares para empresas</span>
+
+          <h1>El tipo de cambio siempre es mejor cuando hay competencia.</h1>
+          <p class="lead">
+            En FIRBID, varias entidades financieras compiten por tu operación.
+            Tu empresa obtiene un tipo de cambio más competitivo con un proceso simple, trazable y profesional.
+          </p>
+
+          <div class="cta-row">
+            <!-- Ajusta links reales -->
+            <a class="btn primary" href="https://www.firbid.com" target="_blank" rel="noopener">Ir a firbid.com</a>
+            <a class="btn" href="#beneficios">Ver beneficios</a>
+            <!-- Cambia el número -->
+            <a class="btn whatsapp" href="https://wa.me/51999999999" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+
+          <div class="note">
+            <span>🔒</span>
+            <div>
+              <strong>Estrategia 2026:</strong> menos promesas, más evidencia.
+              Mostramos el valor central: <em>competencia = mejor tipo de cambio</em>.
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Resumen de valor">
+          <div class="metric">
+            <div class="icon" aria-hidden="true">%</div>
+            <div class="txt">
+              <div class="k">Principio FIRBID</div>
+              <div class="v">Competencia en tiempo real</div>
+            </div>
+          </div>
+
+          <div class="metric">
+            <div class="icon" aria-hidden="true">⏱</div>
+            <div class="txt">
+              <div class="k">Operación</div>
+              <div class="v">Cotización ágil y trazable</div>
+            </div>
+          </div>
+
+          <div class="metric" style="margin-bottom:0;">
+            <div class="icon" aria-hidden="true">🛡</div>
+            <div class="txt">
+              <div class="k">Confianza</div>
+              <div class="v">Proceso transparente</div>
+            </div>
+          </div>
+
+          <div class="mini" aria-label="Highlights">
+            <div class="box">
+              <div class="t">Para</div>
+              <div class="b">Empresas</div>
+            </div>
+            <div class="box">
+              <div class="t">Enfoque</div>
+              <div class="b">Mejor tipo</div>
+            </div>
+            <div class="box">
+              <div class="t">Mecánica</div>
+              <div class="b">Subasta</div>
+            </div>
+            <div class="box">
+              <div class="t">Canal</div>
+              <div class="b">Digital</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <!-- Beneficios -->
+  <section id="beneficios">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Convierte el cambio de dólares en una ventaja</h2>
+          <p class="sub">La diferencia está en el mecanismo: cuando hay competencia real, el tipo de cambio tiende a mejorar.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="badge">💱 Competencia</div>
+          <h3>Mejor tipo de cambio del momento</h3>
+          <p>Entidades financieras compiten por tu operación. Menos “tipo único”, más presión competitiva a tu favor.</p>
+        </div>
+
+        <div class="card">
+          <div class="badge">🧾 Transparencia</div>
+          <h3>Trazabilidad de principio a fin</h3>
+          <p>Proceso ordenado, verificable y documentable para auditoría interna y control financiero.</p>
+        </div>
+
+        <div class="card">
+          <div class="badge">🛡 Seguridad</div>
+          <h3>Operación con foco empresarial</h3>
+          <p>Flujo pensado para empresas: roles, validaciones, soporte y claridad operativa.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="badge">⚡ Velocidad</div>
+          <h3>Decisiones rápidas</h3>
+          <p>Menos tiempo coordinando por canales sueltos. Más acción cuando tu empresa necesita cerrar.</p>
+        </div>
+
+        <div class="card">
+          <div class="badge">📈 Gestión</div>
+          <h3>Mejor disciplina de tipo de cambio</h3>
+          <p>Ayuda a estandarizar la forma de cotizar y comparar, reduciendo decisiones por intuición.</p>
+        </div>
+
+        <div class="card">
+          <div class="badge">🤝 Confianza</div>
+          <h3>Un mensaje simple y fuerte</h3>
+          <p>“El tipo mejora con competencia” es fácil de entender, recordar y defender ante cualquier directorio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Cómo funciona</h2>
+          <p class="sub">Tres pasos claros para activar competencia y capturar mejor tipo.</p>
+        </div>
+        <a class="btn" href="#contacto">Quiero una demo</a>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3 style="margin:0 0 8px; font-size:16px;">Registra tu empresa</h3>
+          <p>Datos básicos y responsables. Configura la operación según tu proceso interno.</p>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <h3 style="margin:0 0 8px; font-size:16px;">Lanza la subasta</h3>
+          <p>Indica monto y condiciones. Entidades financieras compiten por tu operación.</p>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <h3 style="margin:0 0 8px; font-size:16px;">Elige y liquida</h3>
+          <p>Selecciona la mejor propuesta y cierra con orden, trazabilidad y soporte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confianza -->
+  <section id="confianza">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Construido para generar confianza</h2>
+          <p class="sub">La competencia atrae mejor tipo. La confianza permite que las empresas lo adopten.</p>
+        </div>
+      </div>
+
+      <div class="trust" aria-label="Sellos y aliados (placeholders)">
+        <span class="chip">✅ Validación del mercado</span>
+        <span class="chip">🔎 Proceso trazable</span>
+        <span class="chip">🛡 Enfoque corporativo</span>
+        <span class="chip">📄 Soporte y documentación</span>
+        <span class="chip">🤝 Alianzas (placeholders)</span>
+      </div>
+
+      <div class="quote" role="note" aria-label="Testimonio (placeholder)">
+        <blockquote>
+          “Al introducir competencia real, logramos acceder a un tipo de cambio más conveniente para operaciones frecuentes,
+          con un proceso más ordenado para nuestro equipo.”
+        </blockquote>
+        <div class="by">— Testimonio (placeholder), empresa usuaria</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Solicita una demo</h2>
+          <p class="sub">Déjanos tus datos y te contactamos. O escríbenos directo por WhatsApp.</p>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="panel">
+          <!-- Nota: esto es UI. Para enviar realmente, conecta con tu backend o un servicio (Formspree, etc.) -->
+          <form onsubmit="event.preventDefault(); alert('Gracias. Te contactaremos pronto (demo UI).');">
+            <label for="empresa">Empresa</label>
+            <input id="empresa" name="empresa" placeholder="Nombre de la empresa" required />
+
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" placeholder="Tu nombre" required />
+
+            <label for="correo">Correo</label>
+            <input id="correo" name="correo" type="email" placeholder="tu@empresa.com" required />
+
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu necesidad (montos, frecuencia, urgencia)"></textarea>
+
+            <div class="cta-row" style="margin-top:12px;">
+              <button class="btn primary" type="submit">Enviar</button>
+              <a class="btn whatsapp" href="https://wa.me/51999999999" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+
+            <p class="note" style="margin-bottom:0;">
+              <span>📌</span>
+              <span>Tip: si tu operación es grande o recurrente, la competencia suele marcar una diferencia acumulada importante.</span>
+            </p>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="badge">📎 Para tu equipo</div>
+          <h3 style="margin:0 0 8px; font-size:16px;">Mensaje clave (para directorio / finanzas)</h3>
+          <p style="margin:0; color: var(--muted);">
+            <strong style="color:var(--text);">El tipo de cambio siempre es mejor cuando hay competencia.</strong><br/>
+            FIRBID convierte el cambio de dólares en un proceso competitivo, trazable y empresarial.
+          </p>
+
+          <div style="height:12px"></div>
+
+          <div class="badge">✅ Siguiente paso</div>
+          <p style="margin:0; color: var(--muted); font-size:14px;">
+            Si quieres, reemplazo los placeholders por:
+            <br/>• tu número real de WhatsApp
+            <br/>• logos oficiales
+            <br/>• CTA exacto (Subastar / Registrarse / Hablar con un ejecutivo)
+            <br/>• enlace a registro o calendario
+          </p>
+
+          <div class="cta-row" style="margin-top:14px;">
+            <a class="btn" href="#inicio">Volver arriba</a>
+            <a class="btn" href="mailto:contacto@firbid.com">correo@ (placeholder)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© <span id="y"></span> FIRBID. Todos los derechos reservados.</div>
+        <div>
+          <a href="https://www.firbid.com" target="_blank" rel="noopener">firbid.com</a>
+          <span style="opacity:.5;"> • </span>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
