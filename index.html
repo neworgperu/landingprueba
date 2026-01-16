@@ -3,486 +3,343 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FIRBID | El tipo de cambio siempre es mejor cuando hay competencia.</title>
-  <meta name="description" content="FIRBID: subasta de tipo de cambio para empresas. Cuando compiten entidades financieras, tu tipo de cambio mejora en el tiempo." />
+  <title>FIRBID | El tipo de cambio siempre es mejor cuando hay competencia</title>
+  <meta name="description" content="FIRBID: el tipo de cambio siempre es mejor cuando hay competencia. Subasta entre entidades financieras para empresas." />
 
   <style>
     :root{
-      --bg:#070A12;
-      --panel:#0B1020;
-      --card:#0F1733;
-      --text:#EAF0FF;
-      --muted:#A9B4D0;
-      --line:rgba(255,255,255,.10);
-      --brand:#6C2CF2;   /* lila */
-      --brand2:#25D3B5;  /* verde */
-      --accent:#F5C542;  /* dorado suave */
-      --shadow: 0 12px 35px rgba(0,0,0,.35);
-      --radius: 18px;
-      --max: 1120px;
+      --bg:#F6F8FC;
+      --panel:#FFFFFF;
+      --card:#FFFFFF;
+      --text:#0F172A;
+      --muted:#475569;
+      --line:#E5E7EB;
+      --brand:#6C2CF2;
+      --brand2:#16A34A;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --max:1120px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:radial-gradient(1200px 700px at 70% -10%, rgba(108,44,242,.25), transparent 60%),
-                                     radial-gradient(900px 600px at 10% 10%, rgba(37,211,181,.16), transparent 55%),
-                                     var(--bg);
-              color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
-    .topbar{
-      position:sticky;top:0;z-index:50;
-      background:rgba(7,10,18,.72);
-      backdrop-filter: blur(10px);
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:auto;padding:0 20px}
+
+    /* Header */
+    header{
+      background:#fff;
       border-bottom:1px solid var(--line);
     }
-    .topbar .row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:12px}
+    header .row{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      font-weight:800;
+    }
     .logo{
-      width:40px;height:40px;border-radius:12px;
-      background:linear-gradient(135deg, rgba(108,44,242,1), rgba(37,211,181,1));
-      box-shadow: 0 10px 25px rgba(108,44,242,.25);
+      width:36px;height:36px;border-radius:10px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
     }
-    .brand h1{font-size:15px;letter-spacing:.8px;margin:0}
-    .nav{display:flex;gap:16px;align-items:center;color:var(--muted);font-size:14px}
-    .nav a{padding:8px 10px;border-radius:10px}
-    .nav a:hover{background:rgba(255,255,255,.05);color:var(--text)}
+    nav a{
+      margin-left:18px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    nav a:hover{color:var(--text)}
+
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
-      color:var(--text);font-weight:700;font-size:14px;
-      transition:.18s ease;
-      cursor:pointer;
-      user-select:none;
+      padding:10px 16px;
+      border-radius:12px;
+      border:1px solid var(--brand);
+      background:var(--brand);
+      color:#fff;
+      font-weight:700;
+      font-size:14px;
     }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.10)}
-    .btn.primary{
-      border:1px solid rgba(108,44,242,.55);
-      background:linear-gradient(135deg, rgba(108,44,242,.95), rgba(37,211,181,.22));
-      box-shadow: 0 14px 28px rgba(108,44,242,.18);
-    }
-    .btn.primary:hover{filter:saturate(1.1)}
 
     /* Hero */
-    .hero{padding:56px 0 22px}
-    .heroGrid{display:grid;grid-template-columns: 1.15fr .85fr; gap:28px; align-items:stretch}
+    .hero{
+      padding:64px 0 48px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:36px;
+      align-items:center;
+    }
     .kicker{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:8px 12px;border-radius:999px;
-      background:rgba(37,211,181,.10);
-      border:1px solid rgba(37,211,181,.25);
-      color:#CFFAF2;
-      font-size:13px;font-weight:700;
-      width:max-content;
-      margin-bottom:14px;
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(108,44,242,.08);
+      color:var(--brand);
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:16px;
     }
-    .headline{font-size:44px;line-height:1.05;margin:0 0 14px;letter-spacing:-.7px}
-    .headline .hl{background:linear-gradient(90deg, var(--brand), var(--brand2));
-                 -webkit-background-clip:text;background-clip:text;color:transparent}
-    .sub{color:var(--muted);font-size:16px;line-height:1.6;margin:0 0 18px;max-width:56ch}
-    .ctaRow{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-    .mini{color:var(--muted);font-size:13px;margin-top:12px}
-    .heroCard{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      display:flex;flex-direction:column;
+    h1{
+      font-size:42px;
+      line-height:1.1;
+      margin:0 0 16px;
+      letter-spacing:-.6px;
     }
+    h1 span{
+      color:var(--brand);
+    }
+    .sub{
+      font-size:16px;
+      color:var(--muted);
+      line-height:1.6;
+      max-width:56ch;
+    }
+
     .heroImg{
-      position:relative;
-      min-height:260px;
-      background:#0D1328;
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
     }
     .heroImg img{
-      width:100%;height:100%;object-fit:cover;display:block;
-      filter:saturate(1.05) contrast(1.02);
-    }
-    .heroImg:after{
-      content:"";
-      position:absolute;inset:0;
-      background:linear-gradient(180deg, rgba(7,10,18,.05), rgba(7,10,18,.60));
-      pointer-events:none;
-    }
-    .heroCardBody{padding:16px 16px 18px}
-    .badgeRow{display:flex;gap:10px;flex-wrap:wrap}
-    .badge{
-      font-size:12px;font-weight:800;color:rgba(255,255,255,.92);
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      padding:7px 10px;border-radius:999px;
+      width:100%;
+      height:auto;
+      display:block;
     }
 
     /* Sections */
-    section{padding:34px 0}
+    section{
+      padding:56px 0;
+    }
     .sectionTitle{
-      display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px
+      max-width:700px;
+      margin-bottom:28px;
     }
-    .sectionTitle h2{margin:0;font-size:22px;letter-spacing:-.2px}
-    .sectionTitle p{margin:0;color:var(--muted);max-width:60ch;font-size:14px;line-height:1.6}
-    .grid3{display:grid;grid-template-columns:repeat(3, 1fr);gap:14px}
+    .sectionTitle h2{
+      margin:0 0 10px;
+      font-size:26px;
+    }
+    .sectionTitle p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      border:1px solid var(--line);
+      background:#fff;
       border-radius:var(--radius);
-      padding:16px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+      padding:22px;
+      box-shadow:var(--shadow);
+      border:1px solid var(--line);
     }
-    .card h3{margin:0 0 8px;font-size:16px}
-    .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
-    .icon{
-      width:40px;height:40px;border-radius:14px;margin-bottom:10px;
-      display:grid;place-items:center;
-      background:rgba(108,44,242,.15);
-      border:1px solid rgba(108,44,242,.35);
+    .card h3{
+      margin:0 0 8px;
+      font-size:16px;
     }
-    .icon.alt{
-      background:rgba(37,211,181,.12);
-      border:1px solid rgba(37,211,181,.28);
+    .card p{
+      margin:0;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.6;
     }
-    .icon.gold{
-      background:rgba(245,197,66,.10);
-      border:1px solid rgba(245,197,66,.22);
-    }
-    .icon svg{opacity:.95}
 
     /* Steps */
-    .steps{display:grid;grid-template-columns: 1fr 1fr;gap:14px}
+    .steps{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
     .step{
-      display:flex;gap:12px;align-items:flex-start;
-      padding:16px;border-radius:var(--radius);
+      display:flex;
+      gap:14px;
+      background:#fff;
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
       border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
     }
     .num{
-      width:34px;height:34px;border-radius:12px;
-      display:grid;place-items:center;
-      font-weight:900;
-      background:rgba(108,44,242,.18);
-      border:1px solid rgba(108,44,242,.35);
-      flex:0 0 auto;
+      width:34px;height:34px;
+      border-radius:10px;
+      background:rgba(108,44,242,.12);
+      color:var(--brand);
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
     }
-    .step h4{margin:0 0 6px;font-size:15px}
-    .step p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
 
-    /* CTA section */
+    /* CTA */
     .cta{
-      margin-top:10px;
-      background:linear-gradient(135deg, rgba(108,44,242,.30), rgba(37,211,181,.12));
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:calc(var(--radius) + 6px);
-      padding:22px;
-      box-shadow: var(--shadow);
-      display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+      background:#fff;
+      border-radius:calc(var(--radius) + 4px);
+      padding:28px;
+      box-shadow:var(--shadow);
+      border:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
     }
-    .cta h3{margin:0;font-size:18px}
-    .cta p{margin:6px 0 0;color:var(--muted);max-width:64ch;font-size:14px;line-height:1.6}
 
     footer{
-      padding:26px 0 36px;
+      padding:32px 0;
       border-top:1px solid var(--line);
-      color:var(--muted);
       font-size:13px;
+      color:var(--muted);
+      background:#fff;
     }
-    .footRow{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
-    .smallLinks{display:flex;gap:12px;flex-wrap:wrap}
-    .smallLinks a{color:var(--muted)}
-    .smallLinks a:hover{color:var(--text)}
 
-    /* Responsive */
-    @media (max-width: 980px){
+    @media(max-width:900px){
       .heroGrid{grid-template-columns:1fr}
-      .headline{font-size:38px}
       .grid3{grid-template-columns:1fr}
       .steps{grid-template-columns:1fr}
+      h1{font-size:34px}
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="wrap">
-      <div class="row">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div>
-            <h1>FIRBID</h1>
-            <div style="font-size:12px;color:var(--muted);margin-top:2px;">Competencia real por tu tipo de cambio</div>
-          </div>
-        </div>
 
-        <nav class="nav" aria-label="Navegación">
-          <a href="#como-funciona">Cómo funciona</a>
-          <a href="#beneficios">Beneficios</a>
-          <a href="#seguridad">Seguridad</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
+<header>
+  <div class="wrap">
+    <div class="row">
+      <div class="brand">
+        <div class="logo"></div>
+        FIRBID
+      </div>
+      <nav>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </div>
+</header>
 
-        <a class="btn primary" href="#contacto">Solicitar acceso</a>
+<main>
+
+<section class="hero">
+  <div class="wrap heroGrid">
+    <div>
+      <div class="kicker">Frase madre 2026</div>
+      <h1>
+        El tipo de cambio <span>siempre</span> es mejor<br/>
+        cuando hay <span>competencia</span>.
+      </h1>
+      <p class="sub">
+        En el banco, el tipo de cambio es una decisión de un solo ofertante.
+        En FIRBID, es el resultado de competencia entre entidades financieras
+        en cada operación. Por eso, en el tiempo, el resultado es mejor.
+      </p>
+      <div style="margin-top:22px">
+        <a class="btn" href="#contacto">Conocer FIRBID</a>
       </div>
     </div>
-  </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="wrap">
-        <div class="heroGrid">
-          <div>
-            <div class="kicker">
-              <span aria-hidden="true">●</span>
-              Frase madre 2026
-            </div>
+    <div class="heroImg">
+      <img src="img/hero.jpg" alt="Competencia por tipo de cambio FIRBID">
+    </div>
+  </div>
+</section>
 
-            <h2 class="headline">
-              El tipo de cambio <span class="hl">siempre</span> es mejor cuando hay <span class="hl">competencia</span>.
-            </h2>
+<section id="beneficios">
+  <div class="wrap">
+    <div class="sectionTitle">
+      <h2>Por qué la competencia marca la diferencia</h2>
+      <p>No se trata de buscar el mejor número de un día, sino de usar un modelo
+         que mejora el resultado en el tiempo.</p>
+    </div>
 
-            <p class="sub">
-              En el banco, el tipo de cambio es una decisión de un solo ofertante.
-              En FIRBID, es el resultado de una <strong>subasta</strong> entre entidades financieras en cada operación.
-              Así, en el tiempo, tu empresa obtiene un tipo de cambio más eficiente y verificable.
-            </p>
-
-            <div class="ctaRow">
-              <a class="btn primary" href="#contacto">Quiero conocer FIRBID</a>
-              <a class="btn" href="#como-funciona">Ver cómo funciona</a>
-            </div>
-
-            <div class="mini">*Sin promesas puntuales: hablamos de un principio de mercado basado en competencia.</div>
-          </div>
-
-          <aside class="heroCard" aria-label="Imagen principal">
-            <div class="heroImg">
-              <!-- Reemplaza la ruta por tu archivo real -->
-              <img src="img/hero.jpg" alt="Auto de carrera hecho de fajos de dólares representando competencia por tipo de cambio" />
-            </div>
-            <div class="heroCardBody">
-              <div class="badgeRow">
-                <div class="badge">Competencia por operación</div>
-                <div class="badge">Entidades financieras</div>
-                <div class="badge">Eficiencia en el tiempo</div>
-              </div>
-            </div>
-          </aside>
-        </div>
+    <div class="grid3">
+      <div class="card">
+        <h3>Proceso verificable</h3>
+        <p>El tipo de cambio surge de competencia, no de una decisión unilateral.</p>
       </div>
-    </section>
-
-    <!-- BENEFITS / VALUE -->
-    <section id="beneficios">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <h2>Por qué este modelo es distinto</h2>
-          <p>
-            El diferencial no es “un número de hoy”, sino el mecanismo que lo produce:
-            competencia real en cada operación.
-          </p>
-        </div>
-
-        <div class="grid3">
-          <div class="card">
-            <div class="icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l8 4v6c0 5-3.5 9.4-8 10-4.5-.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3>Verificable</h3>
-            <p>El tipo de cambio se define por competencia, no por una decisión unilateral.</p>
-          </div>
-
-          <div class="card">
-            <div class="icon alt">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 17V9m6 8V5m6 12v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Mejor en el tiempo</h3>
-            <p>El valor real está en el promedio de tus operaciones, no en un día aislado.</p>
-          </div>
-
-          <div class="card">
-            <div class="icon gold">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 8c0-2 2-3 5-3s5 1 5 3-2 3-5 3-5 1-5 3 2 3 5 3 5-1 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Eficiencia</h3>
-            <p>Cuando compiten entidades, el precio se ajusta y el poder de negociación se equilibra.</p>
-          </div>
-        </div>
+      <div class="card">
+        <h3>Mejor resultado en el tiempo</h3>
+        <p>El beneficio se observa en el promedio de tus operaciones.</p>
       </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section id="como-funciona">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <h2>Cómo funciona FIRBID</h2>
-          <p>Un flujo simple: tu empresa solicita el cambio y el mercado compite por darte el mejor tipo de cambio del momento.</p>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="num">1</div>
-            <div>
-              <h4>Indicas el monto y la operación</h4>
-              <p>Tu empresa define cuánto desea cambiar y las condiciones de la transacción.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">2</div>
-            <div>
-              <h4>Compiten entidades financieras</h4>
-              <p>Se realiza una subasta: las entidades presentan ofertas para esa operación.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">3</div>
-            <div>
-              <h4>Ganas por competencia</h4>
-              <p>Obtienes un tipo de cambio resultado de competencia, no de un solo ofertante.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">4</div>
-            <div>
-              <h4>Repites y optimizas en el tiempo</h4>
-              <p>La eficiencia se refleja en el promedio de tus operaciones a lo largo del tiempo.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cta" style="margin-top:16px;">
-          <div>
-            <h3>Un principio simple: competir mejora el precio.</h3>
-            <p>FIRBID organiza la competencia para que tu empresa no dependa de una sola oferta.</p>
-          </div>
-          <a class="btn primary" href="#contacto">Solicitar acceso</a>
-        </div>
+      <div class="card">
+        <h3>Menor incertidumbre</h3>
+        <p>La competencia reduce la duda de si recibiste una buena oferta.</p>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- TRUST / SECURITY -->
-    <section id="seguridad">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <h2>Seguridad como base, competencia como diferencial</h2>
-          <p>
-            En 2026, el reto no es “solo seguridad”. Es evitar la incertidumbre de no saber si recibiste una buena oferta.
-            La competencia reduce esa duda.
-          </p>
-        </div>
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="sectionTitle">
+      <h2>Cómo funciona FIRBID</h2>
+      <p>Un proceso simple basado en subasta.</p>
+    </div>
 
-        <div class="grid3">
-          <div class="card">
-            <h3>Menos dependencia</h3>
-            <p>Tu tipo de cambio no queda atado a la decisión de un solo ofertante.</p>
-          </div>
-          <div class="card">
-            <h3>Transparencia del mecanismo</h3>
-            <p>El precio proviene de un proceso competitivo: subasta por operación.</p>
-          </div>
-          <div class="card">
-            <h3>Consistencia</h3>
-            <p>El beneficio se observa en el tiempo, no en una “promesa del día”.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contacto">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <h2>¿Quieres conocer FIRBID?</h2>
-          <p>Déjanos tus datos y coordinamos una demo. (Este formulario es una maqueta; reemplázalo por tu integración real.)</p>
-        </div>
-
-        <div class="card">
-          <form onsubmit="event.preventDefault(); alert('Gracias. Integra aquí tu formulario real (SendPulse, HubSpot, etc.).');">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <label>
-                <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Empresa</div>
-                <input required name="empresa" placeholder="Nombre de la empresa"
-                  style="width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);outline:none" />
-              </label>
-              <label>
-                <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Cargo</div>
-                <input required name="cargo" placeholder="CFO / Tesorería / Finanzas"
-                  style="width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);outline:none" />
-              </label>
-              <label>
-                <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Nombre</div>
-                <input required name="nombre" placeholder="Tu nombre"
-                  style="width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);outline:none" />
-              </label>
-              <label>
-                <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Correo</div>
-                <input required type="email" name="email" placeholder="correo@empresa.com"
-                  style="width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);outline:none" />
-              </label>
-            </div>
-
-            <label style="display:block;margin-top:12px">
-              <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Mensaje (opcional)</div>
-              <textarea name="mensaje" rows="4" placeholder="Cuéntanos qué necesitas (montos, frecuencia, etc.)"
-                style="width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);outline:none;resize:vertical"></textarea>
-            </label>
-
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
-              <button class="btn primary" type="submit">Enviar</button>
-              <a class="btn" href="#como-funciona">Volver a “Cómo funciona”</a>
-            </div>
-
-            <div style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.5">
-              Al enviar, aceptas ser contactado por FIRBID para coordinar una demo. Ajusta este texto según tu política.
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      <div class="footRow">
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
         <div>
-          <strong style="color:var(--text)">FIRBID</strong><br/>
-          <span>El tipo de cambio siempre es mejor cuando hay competencia.</span>
-        </div>
-        <div class="smallLinks">
-          <a href="#beneficios">Beneficios</a>
-          <a href="#como-funciona">Cómo funciona</a>
-          <a href="#seguridad">Seguridad</a>
-          <a href="#contacto">Contacto</a>
+          <strong>Indicas la operación</strong><br/>
+          <span class="sub">Monto y condiciones.</span>
         </div>
       </div>
-      <div style="margin-top:14px">
-        © <span id="y"></span> FIRBID. Todos los derechos reservados.
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <strong>Compiten entidades</strong><br/>
+          <span class="sub">Presentan sus ofertas.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <strong>Ganas por competencia</strong><br/>
+          <span class="sub">El mejor resultado del mercado.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div>
+          <strong>Optimización continua</strong><br/>
+          <span class="sub">Beneficio acumulado en el tiempo.</span>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+<section id="contacto">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h3>Un principio simple: competir mejora el precio.</h3>
+        <p>Déjanos tus datos y coordinamos una demo de FIRBID.</p>
+      </div>
+      <a class="btn" href="#">Solicitar acceso</a>
+    </div>
+  </div>
+</section>
 
-    // Smooth scroll simple
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener("click", (e)=>{
-        const id = a.getAttribute("href");
-        const el = document.querySelector(id);
-        if(!el) return;
-        e.preventDefault();
-        el.scrollIntoView({behavior:"smooth", block:"start"});
-      });
-    });
-  </script>
+</main>
+
+<footer>
+  <div class="wrap">
+    © 2026 FIRBID · El tipo de cambio siempre es mejor cuando hay competencia.
+  </div>
+</footer>
+
 </body>
 </html>
+
