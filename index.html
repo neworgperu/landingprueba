@@ -221,74 +221,103 @@
       h1{font-size:34px}
     }
   </style>
+
+
+<style>
+  .fb-modal{position:fixed;inset:0;display:none;z-index:9999}
+  .fb-modal[aria-hidden="false"]{display:block}
+  .fb-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+  .fb-modal-panel{
+    position:relative;
+    width:min(560px,92vw);
+    height:min(640px,86vh);
+    margin:6vh auto 0;
+    background:#fff;
+    border-radius:14px;
+    overflow:auto;
+    box-shadow:0 12px 40px rgba(0,0,0,.25);
+  }
+  .fb-modal-close{
+    position:absolute;top:10px;right:14px;
+    border:0;background:transparent;font-size:26px;cursor:pointer;
+    line-height:1;
+  }
+  .fb-modal-body{padding:18px}
+</style>
+
+
+
+  
 </head>
 
 
-<div id="leadModal" class="modal">
-  <div class="modal-content">
-    <button class="close" onclick="closeModal()">×</button>
-    <iframe id="leadFrame" src="" frameborder="0"></iframe>
+
+<div id="leadModal" class="fb-modal" aria-hidden="true">
+  <div class="fb-modal-backdrop" onclick="closeLeadModal()"></div>
+
+  <div class="fb-modal-panel" role="dialog" aria-modal="true">
+    <button class="fb-modal-close" onclick="closeLeadModal()" aria-label="Cerrar">×</button>
+
+    <div class="fb-modal-body">
+      <!-- Aquí se insertará el script de SendPulse -->
+      <div id="sendpulseMount"></div>
+    </div>
   </div>
 </div>
 
-<style>
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-.modal-content {
-  background: #fff;
-  width: 90%;
-  max-width: 520px;
-  height: 80%;
-  border-radius: 12px;
-  position: relative;
-}
-.modal iframe {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-}
-.close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-</style>
-
 <script>
-const forms = {
-  meta: "https://forms.sendpulse.com/e744695fb9",
-  google: "https://forms.sendpulse.com/f1b795e3a8",
-  linkedin: "https://forms.sendpulse.com/598c8ca884"
-};
+  // 1) Coloca aquí los 3 sp-form-id (uno por canal)
+  const FORM_IDS = {
+    meta:     "5df63eb13c5b07e85eda35ce2d21074a209001a308bb94cdbc00667ca9a31b88",
+    google:   "25f3b8b29f9c56495cc234ffddf91a040a3cf7bc09420bcead8cf9cf2a13e121",
+    linkedin: "be928f528472783633eca45cbcd8f7dffc117a1c86a21ee1c77942e4168defa9"
+  };
 
-function openModal(url) {
-  document.getElementById("leadFrame").src = url;
-  document.getElementById("leadModal").style.display = "flex";
-}
+  // 2) Loader URL: en GitHub Pages usa https explícito (no //)
+  const SENDPULSE_LOADER = "https://web.webformscr.com/apps/fc3/build/loader.js";
 
-function closeModal() {
-  document.getElementById("leadModal").style.display = "none";
-  document.getElementById("leadFrame").src = "";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const src = new URLSearchParams(window.location.search).get("src");
-  if (forms[src]) {
-    setTimeout(() => openModal(forms[src]), 400);
+  function clearMount() {
+    document.getElementById("sendpulseMount").innerHTML = "";
   }
-});
+
+  function mountSendPulseForm(spFormId) {
+    clearMount();
+
+    const mount = document.getElementById("sendpulseMount");
+    const s = document.createElement("script");
+
+    s.src = SENDPULSE_LOADER;
+    s.async = true;
+
+    // Este atributo es la clave de tu snippet:
+    s.setAttribute("sp-form-id", spFormId);
+
+    mount.appendChild(s);
+  }
+
+  function openLeadModal(channel) {
+    const id = FORM_IDS[channel];
+    if (!id) return;
+
+    document.getElementById("leadModal").setAttribute("aria-hidden", "false");
+    mountSendPulseForm(id);
+  }
+
+  function closeLeadModal() {
+    document.getElementById("leadModal").setAttribute("aria-hidden", "true");
+    clearMount();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const src = (new URLSearchParams(window.location.search).get("src") || "").toLowerCase();
+    if (src === "meta" || src === "google" || src === "linkedin") {
+      // Pequeño delay para que cargue primero la web y luego el modal
+      setTimeout(() => openLeadModal(src), 150);
+    }
+  });
 </script>
+
+
 
 
   
