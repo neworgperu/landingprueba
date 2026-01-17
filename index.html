@@ -224,37 +224,7 @@
   
 </head>
 
-
-
-<script>
-function autoOpen(formButtonId, maxTries = 20, delay = 150) {
-  let tries = 0;
-
-  const timer = setInterval(() => {
-    const btn = document.getElementById(formButtonId);
-    if (btn) {
-      btn.click();
-      tries++;
-      if (tries >= maxTries) clearInterval(timer);
-    } else {
-      tries++;
-      if (tries >= maxTries) clearInterval(timer);
-    }
-  }, delay);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const src = new URLSearchParams(window.location.search).get("src");
-
-  if (src === "meta") autoOpen("openMeta");
-  if (src === "google") autoOpen("openGoogle");
-  if (src === "linkedin") autoOpen("openLinkedin");
-});
-</script>
-
-  
-
-  
+ 
 <body>
 
 <header>
@@ -273,14 +243,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </header>
 
   
+
 <main>
-
-
-<button id="openMeta" sp-show-form="251257" style="display:none;">meta</button>
-<button id="openGoogle" sp-show-form="251280" style="display:none;">google</button>
-<button id="openLinkedin" sp-show-form="251281" style="display:none;">linkedin</button>
-
-  
   
 <section class="hero">
   <div class="wrap heroGrid">
@@ -390,6 +354,37 @@ document.addEventListener("DOMContentLoaded", function () {
     © 2026 FIRBID · El tipo de cambio siempre es mejor cuando hay competencia.
   </div>
 </footer>
+
+
+<button id="openMeta" sp-show-form="251257" style="display:none;">meta</button>
+<button id="openGoogle" sp-show-form="251280" style="display:none;">google</button>
+<button id="openLinkedin" sp-show-form="251281" style="display:none;">linkedin</button>
+
+<script>
+function autoOpen(formButtonId, maxTries = 20, delay = 150) {
+  let tries = 0;
+
+  const timer = setInterval(() => {
+    const btn = document.getElementById(formButtonId);
+    if (btn) {
+      btn.click();
+      tries++;
+      if (tries >= maxTries) clearInterval(timer);
+    } else {
+      tries++;
+      if (tries >= maxTries) clearInterval(timer);
+    }
+  }, delay);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const src = new URLSearchParams(window.location.search).get("src");
+
+  if (src === "meta") autoOpen("openMeta");
+  if (src === "google") autoOpen("openGoogle");
+  if (src === "linkedin") autoOpen("openLinkedin");
+});
+</script>
 
 
 <script src="//web.webformscr.com/apps/fc3/build/loader.js" async></script>
