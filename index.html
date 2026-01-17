@@ -224,40 +224,72 @@
 </head>
 
 
-<!-- 1) Loader de SendPulse (una sola vez) -->
-<script src="https://static.sendpulse.com/js/push/form.js" async></script>
+<div id="leadModal" class="modal">
+  <div class="modal-content">
+    <button class="close" onclick="closeModal()">×</button>
+    <iframe id="leadFrame" src="" frameborder="0"></iframe>
+  </div>
+</div>
 
-<!-- 2) “Contenedores” de los 3 formularios (cada uno con su data-id) -->
-<div class="sp-form" data-id="5df63eb13c5b07e85eda35ce2d21074a209001a308bb94cdbc00667ca9a31b88"></div>
-<div class="sp-form" data-id="25f3b8b29f9c56495cc234ffddf91a040a3cf7bc09420bcead8cf9cf2a13e121"></div>
-<div class="sp-form" data-id="be928f528472783633eca45cbcd8f7dffc117a1c86a21ee1c77942e4168defa9"></div>
+<style>
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 520px;
+  height: 80%;
+  border-radius: 12px;
+  position: relative;
+}
+.modal iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+</style>
 
 <script>
-  function openSendPulseForm(formId) {
-    const el = document.querySelector('[data-id="' + formId + '"]');
-    if (!el) return;
+const forms = {
+  meta: "https://forms.sendpulse.com/e744695fb9",
+  google: "https://forms.sendpulse.com/f1b795e3a8",
+  linkedin: "https://forms.sendpulse.com/598c8ca884"
+};
 
-    // Algunos forms abren al “click”; si no, igual sirve como trigger en muchos casos.
-    el.click();
+function openModal(url) {
+  document.getElementById("leadFrame").src = url;
+  document.getElementById("leadModal").style.display = "flex";
+}
 
-    // Fallback: reintento por si el script async aún no cargó
-    setTimeout(() => el.click(), 600);
-    setTimeout(() => el.click(), 1500);
+function closeModal() {
+  document.getElementById("leadModal").style.display = "none";
+  document.getElementById("leadFrame").src = "";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const src = new URLSearchParams(window.location.search).get("src");
+  if (forms[src]) {
+    setTimeout(() => openModal(forms[src]), 400);
   }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const src = (params.get("src") || "").toLowerCase();
-
-    const map = {
-      meta: "5df63eb13c5b07e85eda35ce2d21074a209001a308bb94cdbc00667ca9a31b88",
-      google: "25f3b8b29f9c56495cc234ffddf91a040a3cf7bc09420bcead8cf9cf2a13e121",
-      linkedin: "be928f528472783633eca45cbcd8f7dffc117a1c86a21ee1c77942e4168defa9"
-    };
-
-    if (map[src]) openSendPulseForm(map[src]);
-  });
+});
 </script>
+
 
   
 
