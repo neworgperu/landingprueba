@@ -223,6 +223,44 @@
   </style>
 </head>
 
+
+<!-- 1) Loader de SendPulse (una sola vez) -->
+<script src="https://static.sendpulse.com/js/push/form.js" async></script>
+
+<!-- 2) “Contenedores” de los 3 formularios (cada uno con su data-id) -->
+<div class="sp-form" data-id="5df63eb13c5b07e85eda35ce2d21074a209001a308bb94cdbc00667ca9a31b88"></div>
+<div class="sp-form" data-id="25f3b8b29f9c56495cc234ffddf91a040a3cf7bc09420bcead8cf9cf2a13e121"></div>
+<div class="sp-form" data-id="be928f528472783633eca45cbcd8f7dffc117a1c86a21ee1c77942e4168defa9"></div>
+
+<script>
+  function openSendPulseForm(formId) {
+    const el = document.querySelector('[data-id="' + formId + '"]');
+    if (!el) return;
+
+    // Algunos forms abren al “click”; si no, igual sirve como trigger en muchos casos.
+    el.click();
+
+    // Fallback: reintento por si el script async aún no cargó
+    setTimeout(() => el.click(), 600);
+    setTimeout(() => el.click(), 1500);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const src = (params.get("src") || "").toLowerCase();
+
+    const map = {
+      meta: "5df63eb13c5b07e85eda35ce2d21074a209001a308bb94cdbc00667ca9a31b88",
+      google: "25f3b8b29f9c56495cc234ffddf91a040a3cf7bc09420bcead8cf9cf2a13e121",
+      linkedin: "be928f528472783633eca45cbcd8f7dffc117a1c86a21ee1c77942e4168defa9"
+    };
+
+    if (map[src]) openSendPulseForm(map[src]);
+  });
+</script>
+
+  
+
 <body>
 
 <header>
